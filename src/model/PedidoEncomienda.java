@@ -5,8 +5,8 @@ public class PedidoEncomienda extends Pedido{
     private double pesoKg;
     private boolean embalajeValido;
 
-    public PedidoEncomienda(String direccionEntrega, String idPedido, double pesoKg, boolean embalajeValido) {
-        super("Encomienda", direccionEntrega, idPedido);
+    public PedidoEncomienda(String direccionEntrega, String idPedido,double distanciaKm, double pesoKg, boolean embalajeValido) {
+        super("Encomienda", direccionEntrega, idPedido, distanciaKm);
         this.pesoKg = pesoKg;
         this.embalajeValido = embalajeValido;
     }
@@ -34,5 +34,10 @@ public class PedidoEncomienda extends Pedido{
             System.out.println("**Validando peso y embalaje...RECHAZADO**");
             System.out.println("Pedido no se pudo asignar a = " + nombreRepartidor) ;
         }
+    }
+
+    @Override
+    public double calcularTiempoEntrega(){
+        return Math.round (20 + (1.5 * getDistanciaKm()));
     }
 }

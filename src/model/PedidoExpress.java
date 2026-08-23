@@ -1,20 +1,17 @@
 package model;
 
 public class PedidoExpress extends Pedido{
-    private double distanciaKm;
+
     private boolean disponibilidadInmediata;
 
     public PedidoExpress(String tipoPedido, String direccionEntrega, String idPedido, double distanciaKm, boolean disponibilidadInmediata) {
-        super(tipoPedido, direccionEntrega, idPedido);
-        this.distanciaKm = distanciaKm;
+        super(tipoPedido, direccionEntrega, idPedido, distanciaKm);
         this.disponibilidadInmediata = disponibilidadInmediata;
     }
 
-    public double getDistanciaKm() {
-        return distanciaKm;
-    }
 
     public boolean isDisponibilidadInmediata() {
+
         return disponibilidadInmediata;
     }
 
@@ -32,6 +29,15 @@ public class PedidoExpress extends Pedido{
             System.out.println("**Sin repartidor disponible de forma inmediata**");
             System.out.println("Pedido no se pudo asignar a = " + nombreRepartidor);
         }
+    }
+
+    @Override
+    public double calcularTiempoEntrega(){
+        double tiempo = 10;
+        if (getDistanciaKm() > 5) {
+            tiempo += 5;
+        }
+        return tiempo;
     }
 }
 

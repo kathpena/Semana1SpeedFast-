@@ -4,8 +4,8 @@ public class PedidoComida extends Pedido {
 
     private boolean requeireMochilaT;
 
-    public PedidoComida(String tipoPedido, String direccionEntrega, String idPedido, boolean requeireMochilaT) {
-        super(tipoPedido, direccionEntrega, idPedido);
+    public PedidoComida(String tipoPedido, String direccionEntrega, String idPedido, double distanciaKm, boolean requeireMochilaT) {
+        super(tipoPedido, direccionEntrega, idPedido, distanciaKm);
         this.requeireMochilaT = requeireMochilaT;
     }
 
@@ -28,5 +28,10 @@ public class PedidoComida extends Pedido {
             System.out.println("**Verifiicando mochila térmica... FALTA**");
             System.out.println("Pedido no pudo ser asignado a = " + nombreRepartidor + "**");
         }
+    }
+
+    @Override
+    public double calcularTiempoEntrega(){
+        return 15 + (2 * getDistanciaKm());
     }
 }
