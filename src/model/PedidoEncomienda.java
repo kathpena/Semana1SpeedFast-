@@ -1,6 +1,8 @@
 package model;
 
-public class PedidoEncomienda extends Pedido{
+import model.interfaces.Cancelable;
+
+public class PedidoEncomienda extends Pedido implements Cancelable{
 
     private double pesoKg;
     private boolean embalajeValido;
@@ -39,5 +41,15 @@ public class PedidoEncomienda extends Pedido{
     @Override
     public double calcularTiempoEntrega(){
         return Math.round (20 + (1.5 * getDistanciaKm()));
+    }
+
+    @Override
+    public void cancelar() {
+        if (despachado) {
+            System.out.println("No se puede cancelar el pedido " + getIdPedido() + ": ya fue despachado.");
+        } else {
+            cancelado = true;
+            System.out.println("Pedido " + getIdPedido() + " cancelado.");
+        }
     }
 }

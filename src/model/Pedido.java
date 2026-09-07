@@ -1,19 +1,24 @@
 package model;
 
-public abstract class Pedido implements Despachable, Cancelable {
+import model.interfaces.Despachable;
+import model.interfaces.Reservable;
+
+public abstract class Pedido implements Reservable, Despachable {
 
     private String idPedido;
     private String direccionEntrega;
     private String tipoPedido;
     private double distanciaKm;
-    private boolean despachado;
-    private boolean cancelado;
+    protected boolean reservado;
+    protected boolean despachado;
+    protected boolean cancelado;
 
     public Pedido(String tipoPedido, String direccionEntrega, String idPedido, double distanciaKm) {
         this.tipoPedido = tipoPedido;
         this.direccionEntrega = direccionEntrega;
         this.idPedido = idPedido;
         this.distanciaKm = distanciaKm;
+        this.reservado = false;
         this.despachado = false;
         this.cancelado = false;
     }
@@ -24,6 +29,7 @@ public abstract class Pedido implements Despachable, Cancelable {
     public double getDistanciaKm() {
         return distanciaKm;
     }
+    public boolean isReservado() {return reservado;}
     public boolean isDespachado() {return despachado;}
     public boolean isCancelado() {return cancelado;}
 
@@ -49,29 +55,28 @@ public abstract class Pedido implements Despachable, Cancelable {
     public abstract double calcularTiempoEntrega();
 
     @Override
-    public void despachar() {
-
-        if (cancelado) {
-              System.out.println("El pedido " + idPedido + " Fue cancelado");
-        }else{
-            despachado = true;
-            System.out.println("Pedido " + idPedido + " El pedido va en camino ");
+    public void reservar() {
+        if (reservado) {
+            System.out.println("El pedido " + idPedido + " ya estaba reservado.");
+        } else {
+            reservado = true;
+            System.out.println("Pedido " + idPedido + " reservado correctamente.");
         }
     }
 
     @Override
-    public void cancelar() {
+    public void despachar() {
 
-        if (despachado){
-            System.out.println("El pedido " + idPedido + " no se puede cancelar ya fue despachado");
-
+        if (cancelado) {
+              System.out.println("El pedido " + idPedido + " Fue cancelado");
+        }else if (!reservado) {
+              System.out.println("El pedido " + idPedido + " no se puede despachar, no esta reservado.");
         }else{
-            cancelado = true;
-            System.out.println("El pedido " + idPedido + " fue cancelado ");
-
+            despachado = true;
+            System.out.println("Pedido " + idPedido + " El pedido va en camino a: " + direccionEntrega);
         }
-
-
     }
+
+
 
 }
