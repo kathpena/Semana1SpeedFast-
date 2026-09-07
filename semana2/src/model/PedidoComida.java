@@ -1,18 +1,16 @@
 package model;
 
-import model.interfaces.Cancelable;
+public class PedidoComida extends Pedido {
 
-public class PedidoComida extends Pedido implements Cancelable {
+    private boolean requeireMochilaT;
 
-    private boolean requiereMochilaT;
-
-    public PedidoComida(String tipoPedido, String direccionEntrega, String idPedido, double distanciaKm, boolean requiereMochilaT) {
+    public PedidoComida(String tipoPedido, String direccionEntrega, String idPedido, double distanciaKm, boolean requeireMochilaT) {
         super(tipoPedido, direccionEntrega, idPedido, distanciaKm);
-        this.requiereMochilaT = requiereMochilaT;
+        this.requeireMochilaT = requeireMochilaT;
     }
 
     public boolean isRequeireMochilaT() {
-        return requiereMochilaT;
+        return requeireMochilaT;
     }
 
     @Override
@@ -23,7 +21,7 @@ public class PedidoComida extends Pedido implements Cancelable {
 
     @Override
     public void asignarRepartidor(String nombreRepartidor) {
-        if (requiereMochilaT) {
+        if (requeireMochilaT) {
             System.out.println("**Verificando mochila térmica...OK**" );
             System.out.println("Pedido asignado a = " + nombreRepartidor);
         }else{
@@ -35,15 +33,5 @@ public class PedidoComida extends Pedido implements Cancelable {
     @Override
     public double calcularTiempoEntrega(){
         return 15 + (2 * getDistanciaKm());
-    }
-
-    @Override
-    public void cancelar() {
-        if (despachado) {
-            System.out.println("No se puede cancelar el pedido " + getIdPedido() + ": ya fue despachado.");
-        } else {
-            cancelado = true;
-            System.out.println("Pedido " + getIdPedido() + " cancelado.");
-        }
     }
 }

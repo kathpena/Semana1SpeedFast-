@@ -1,5 +1,7 @@
 package model;
 
+import model.interfaces.Rastreable;
+
 import java.util.ArrayList;
 
 public class ControladorDeEnvios implements Rastreable {
@@ -27,8 +29,8 @@ public class ControladorDeEnvios implements Rastreable {
             return;
         }
         for (Pedido pedido : historial) {
-            System.out.println("Pedido " + pedido.getIdPedido() + "(" + pedido.getTipoPedido()
-                    + " ) => " + pedido.getDireccionEntrega() + "=Tiempo: " + pedido.calcularTiempoEntrega()
+            System.out.println("Pedido " + pedido.getIdPedido() + " (" + pedido.getTipoPedido()
+                    + ") => " + pedido.getDireccionEntrega() + " = Tiempo: " + pedido.calcularTiempoEntrega()
                     + " min");
 
         }

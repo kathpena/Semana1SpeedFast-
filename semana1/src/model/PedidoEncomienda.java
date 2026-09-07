@@ -1,14 +1,12 @@
 package model;
 
-import model.interfaces.Cancelable;
-
-public class PedidoEncomienda extends Pedido implements Cancelable{
+public class PedidoEncomienda extends Pedido{
 
     private double pesoKg;
     private boolean embalajeValido;
 
-    public PedidoEncomienda(String direccionEntrega, String idPedido,double distanciaKm, double pesoKg, boolean embalajeValido) {
-        super("Encomienda", direccionEntrega, idPedido, distanciaKm);
+    public PedidoEncomienda(String direccionEntrega, String idPedido, double pesoKg, boolean embalajeValido) {
+        super("Encomienda", direccionEntrega, idPedido);
         this.pesoKg = pesoKg;
         this.embalajeValido = embalajeValido;
     }
@@ -35,21 +33,6 @@ public class PedidoEncomienda extends Pedido implements Cancelable{
         }else{
             System.out.println("**Validando peso y embalaje...RECHAZADO**");
             System.out.println("Pedido no se pudo asignar a = " + nombreRepartidor) ;
-        }
-    }
-
-    @Override
-    public double calcularTiempoEntrega(){
-        return Math.round (20 + (1.5 * getDistanciaKm()));
-    }
-
-    @Override
-    public void cancelar() {
-        if (despachado) {
-            System.out.println("No se puede cancelar el pedido " + getIdPedido() + ": ya fue despachado.");
-        } else {
-            cancelado = true;
-            System.out.println("Pedido " + getIdPedido() + " cancelado.");
         }
     }
 }
